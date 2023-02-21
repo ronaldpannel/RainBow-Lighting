@@ -108,14 +108,12 @@ window.addEventListener("load", function () {
   animate();
 
   linearBtn.addEventListener("click", function (e) {
-    e.preventDefault();
     linesArray.forEach((lineObject) => {
       lineObject.setGrad(linearGrad);
     });
   });
 
   radialBtn.addEventListener("click", function (e) {
-    e.preventDefault();
     linesArray.forEach((lineObject) => {
       lineObject.setGrad(RadialGrad);
     });
