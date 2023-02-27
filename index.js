@@ -3,62 +3,28 @@
 window.addEventListener("load", function () {
   const canvas = document.getElementById("canvas1");
   const ctx = canvas.getContext("2d");
-  canvas.width = 700;
-  canvas.height = 900;
-
-  const radialBtn = this.document.getElementById("radialBtn");
-  const linearBtn = this.document.getElementById("linearBtn");
+  canvas.width = 500;
+  canvas.height = 600;
 
   const linesArray = [];
-  const numberOfLines = 200;
+  const numberOfLines = 100;
 
-  //canvas shadows
-  ctx.shadowOffsetX = 2;
-  ctx.shadowOffsetY = 2;
-  ctx.shadowColor = "white";
-
-  const linearGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.width);
-  linearGrad.addColorStop("0.2", "pink");
-  linearGrad.addColorStop("0.3", "red");
-  linearGrad.addColorStop("0.4", "orange");
-  linearGrad.addColorStop("0.5", "yellow");
-  linearGrad.addColorStop("0.6", "green");
-  linearGrad.addColorStop("0.7", "turquoise");
-  linearGrad.addColorStop("0.8", "violet");
-
-  const radialGrad = ctx.createRadialGradient(
-    canvas.width * 0.5,
-    canvas.width * 0.5,
-    10,
-    canvas.width * 0.5,
-    canvas.width * 0.5,
-    300
-  );
-  radialGrad.addColorStop("0.2", "pink");
-  radialGrad.addColorStop("0.3", "red");
-  radialGrad.addColorStop("0.4", "orange");
-  radialGrad.addColorStop("0.5", "yellow");
-  radialGrad.addColorStop("0.6", "green");
-  radialGrad.addColorStop("0.7", "turquoise");
-  radialGrad.addColorStop("0.8", "violet");
-  ctx.strokeStyle = "hsl(230, 100%, 50%)";
   class Line {
     constructor(canvas) {
       this.canvas = canvas;
       this.x = Math.floor(Math.random() * canvas.width);
       this.y = Math.floor(Math.random() * canvas.height);
       this.history = [{ x: this.x, y: this.y }];
-      this.lineWidth = Math.floor(Math.random() * 10 + 1);
-      //this.lineWidth = 50;
+      this.lineWidth = Math.floor(Math.random() * 16 + 1);
       this.hue = Math.floor(Math.random() * 360);
-      this.maxLength = Math.floor(Math.random() * 150 + 10);
-      this.speedX = Math.random() * 1 - 0.5;
+      this.maxLength = Math.floor(Math.random()* 150 + 10);
+      this.speedX = Math.random() * 1 -0.5;
       this.speedY = 7;
       this.lifeSpan = this.maxLength * 3;
       this.timer = 0;
     }
     draw(context) {
-      //context.strokeStyle = "hsl(" + this.hue + ", 100%, 50%)";
+      context.strokeStyle = "hsl(" + this.hue + ", 100%, 50%)";
       context.lineWidth = this.lineWidth;
       context.beginPath();
       context.moveTo(this.history[0].x, this.history[0].y);
@@ -66,9 +32,6 @@ window.addEventListener("load", function () {
         context.lineTo(this.history[i].x, this.history[i].y);
       }
       context.stroke();
-    }
-    setGrad(newGrad) {
-      ctx.strokeStyle = newGrad;
     }
     update() {
       this.timer++;
@@ -106,24 +69,6 @@ window.addEventListener("load", function () {
     requestAnimationFrame(animate);
   }
   animate();
-
-  linearBtn.addEventListener("click", function (e) {
-    e.preventDefault();
-    linesArray.forEach((lineObject) => {
-      lineObject.setGrad(linearGrad);
-      lineObject.draw(ctx);
-      lineObject.update();
-    });
-  });
-
-  radialBtn.addEventListener("click", function (e) {
-    e.preventDefault();
-    linesArray.forEach((lineObject) => {
-      lineObject.setGrad(radialGrad);
-      lineObject.draw(ctx);
-      lineObject.update();
-    });
-  });
 
   //load function end
 });
