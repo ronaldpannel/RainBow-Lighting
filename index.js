@@ -26,7 +26,7 @@ window.addEventListener("load", function () {
   linearGrad.addColorStop("0.7", "turquoise");
   linearGrad.addColorStop("0.8", "violet");
 
-  const RadialGrad = ctx.createRadialGradient(
+  const radialGrad = ctx.createRadialGradient(
     canvas.width * 0.5,
     canvas.width * 0.5,
     10,
@@ -34,13 +34,13 @@ window.addEventListener("load", function () {
     canvas.width * 0.5,
     300
   );
-  RadialGrad.addColorStop("0.2", "pink");
-  RadialGrad.addColorStop("0.3", "red");
-  RadialGrad.addColorStop("0.4", "orange");
-  RadialGrad.addColorStop("0.5", "yellow");
-  RadialGrad.addColorStop("0.6", "green");
-  RadialGrad.addColorStop("0.7", "turquoise");
-  RadialGrad.addColorStop("0.8", "violet");
+  radialGrad.addColorStop("0.2", "pink");
+  radialGrad.addColorStop("0.3", "red");
+  radialGrad.addColorStop("0.4", "orange");
+  radialGrad.addColorStop("0.5", "yellow");
+  radialGrad.addColorStop("0.6", "green");
+  radialGrad.addColorStop("0.7", "turquoise");
+  radialGrad.addColorStop("0.8", "violet");
   ctx.strokeStyle = "hsl(230, 100%, 50%)";
   class Line {
     constructor(canvas) {
@@ -108,14 +108,20 @@ window.addEventListener("load", function () {
   animate();
 
   linearBtn.addEventListener("click", function (e) {
+    e.preventDefault();
     linesArray.forEach((lineObject) => {
       lineObject.setGrad(linearGrad);
+      lineObject.draw(ctx);
+      lineObject.update();
     });
   });
 
   radialBtn.addEventListener("click", function (e) {
+    e.preventDefault();
     linesArray.forEach((lineObject) => {
-      lineObject.setGrad(RadialGrad);
+      lineObject.setGrad(radialGrad);
+      lineObject.draw(ctx);
+      lineObject.update();
     });
   });
 
